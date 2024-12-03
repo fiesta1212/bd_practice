@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, sum #<put your code here>
+from pyspark.sql.functions import col, count, sum
 
 spark = SparkSession.builder \
     .appName("test") \
@@ -11,18 +11,16 @@ df = df.select("country", "geonameid", "name", "subcountry")
 
 df.printSchema()
 
-# Группируем данные по странам и подстранным и выполняем агрегацию
 grouped_result = df.groupBy("country", "subcountry") \
     .agg(
-        count("geonameid").alias("city_count")  # Подсчитываем общее количество городов для каждой подстраны
+        count("geonameid").alias("city_count")
     )
 
-# Теперь группируем по стране и считаем уникальные подстраны и общее количество городов
 final_result = grouped_result.groupBy("country") \
     .agg(
-        count("subcountry").alias("subcountry_count"),  # Уникальные подстраны
-        sum("city_count").alias("city_count")                   # Общее количество городов
+        count("subcountry").alias("subcountry_count"),
+        sum("city_count").alias("city_count")
     ) \
-    .orderBy(col("city_count").desc())                        # Сортируем по количеству городов
+    .orderBy(col("city_count").desc())
 
 final_result.show()
