@@ -13,14 +13,14 @@ df.printSchema()
 
 grouped_result = df.groupBy("country", "subcountry") \
     .agg(
-        count("geonameid").alias("city_count")
+        count("geonameid").alias("cnt")
     )
 
 final_result = grouped_result.groupBy("country") \
     .agg(
-        count("subcountry").alias("subcountry_count"),
-        sum("city_count").alias("city_count")
+        count("subcountry").alias("subcountry"),
+        sum("cnt").alias("cnt")
     ) \
-    .orderBy(col("city_count").desc())
+    .orderBy(col("cnt").desc())
 
 final_result.show()
