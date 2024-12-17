@@ -1,0 +1,1 @@
+{  "id": "a2globalid",  "op": "c",  "ts": 1577873800000,  "data": {    "account_id": "a2",    "name": "Alex",    "address": "Atlanta",    "phone_number": "98765432",    "email": "Alex@somebank.com"  }}
